@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Banking System UI</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      padding: 30px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      color: #333;
+    }
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .button-group {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .balance {
+      margin-top: 25px;
+      padding: 15px;
+      background: #e9f7ef;
+      border: 1px solid #b2dfdb;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: bold;
+      color: #2e7d32;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Bank Account Dashboard</h2>
+    
+    <label for="accountName">Account Holder's Name</label>
+    <input type="text" id="accountName" placeholder="Enter your name">
+
+    <label for="accountNumber">Account Number</label>
+    <input type="text" id="accountNumber" placeholder="Enter account number">
+
+    <label for="depositAmount">Deposit Amount</label>
+    <input type="number" id="depositAmount" placeholder="Enter amount to deposit">
+
+    <label for="withdrawAmount">Withdraw Amount</label>
+    <input type="number" id="withdrawAmount" placeholder="Enter amount to withdraw">
+
+    <div class="button-group">
+      <button onclick="deposit()">Deposit</button>
+      <button onclick="withdraw()">Withdraw</button>
+    </div>
+
+    <div class="balance" id="balanceDisplay">
+      Current Balance: ₹0.00
+    </div>
+  </div>
+
+  <script>
+    let balance = 0;
+
+    function deposit() {
+      let amount = parseFloat(document.getElementById('depositAmount').value);
+      if (isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid deposit amount.");
+        return;
+      }
+      balance += amount;
+      updateBalance();
+      document.getElementById('depositAmount').value = '';
+    }
+
+    function withdraw() {
+      let amount = parseFloat(document.getElementById('withdrawAmount').value);
+      if (isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid withdrawal amount.");
+        return;
+      }
+      if (amount > balance) {
+        alert("Insufficient balance.");
+        return;
+      }
+      balance -= amount;
+      updateBalance();
+      document.getElementById('withdrawAmount').value = '';
+    }
+
+    function updateBalance() {
+      document.getElementById('balanceDisplay').textContent = `Current Balance: ₹${balance.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>
